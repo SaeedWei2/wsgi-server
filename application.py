@@ -8,8 +8,11 @@ def app(environ, start_response):
     result = '';
     m = re.match('.*\.html$',path)
     if(m):
-        for line in open(path):
-            result+=line
+        try:
+            for line in open(path):
+                result+=line
+        except FileNotFoundError as e:
+            result+='404Not found'
     else:
         result+=hello(path)
     return result
